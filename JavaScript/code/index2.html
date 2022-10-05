@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Document</title>
+   <link rel="stylesheet" href="main.css">
+</head>
+<body>
+   <div class="alert-box" id="alert">
+   <p id="title">알림창</p>
+   <button id="close">닫기</button>
+   </div>
+
+   <button id="inputID">버튼1</button>
+   <button id="inputPW">버튼2</button>
+
+   <script>
+    document.getElementById('close').addEventListener("click", function(){ alertDisplay('none');});
+    document.getElementById('inputID').addEventListener("click", function(){ alertDisplay('block'), alertMessage("아이디를 입력하세요");});
+    document.getElementById('inputPW').addEventListener("click", function(){ alertDisplay('block'), alertMessage("비밀번호를 입력하세요");});
+
+       function alertDisplay(bn){
+           document.getElementById('alert').style.display=bn;
+       }
+
+       function alertMessage(message){
+           document.getElementById('title').innerHTML=message;
+       }
+   </script>
+   </body>
+</html>

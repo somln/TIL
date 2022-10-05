@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="black-bg">
+        <div class="white-bg">
+          <h4>로그인하세요</h4>
+          <form action="success.html">
+            <div class="my-3">
+              <input type="text" class="form-control" id="email">
+             </div>
+             <div class="my-3">
+                <input type="password" class="form-control" id="pw">
+             </div>
+             <button type="submit" class="btn btn-primary" id="send">전송</button>
+             <button type="button" class="btn btn-danger" id="close">닫기</button>
+          </form> 
+        </div>
+      </div> 
+
+      <div class="main-bg">
+        <h4>Shirts on Slae</h4>
+        <button id="login" class="btn btn-danger">로그인</button>
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"></script>
+
+    <script>
+        //로그인 버튼 눌렀을 때 로그인 창 생성
+        $('#login').on('click', function(){
+            $('.black-bg').addClass('show-modal');
+         });
+
+         //닫기 버튼 눌렀을 때 로그인 창 닫음
+         $('#close').on('click', function(){
+            $('.black-bg').css('display', 'none');
+         });
+
+         //전송 버튼 눌렀을 때 아이디 비번 확인
+         $('#send').on('click', checkIdPw);   
+        function checkIdPw(){
+
+            var id=$('#email').val();
+            var pw=$('#pw').val();
+
+            if (id == '') {
+                alert(' 아이디를 입력하세요');
+            }
+            //정규식을 사용하여 이메일 형식 검사
+            else if((/\S+@\S+\.\S+/.test(id))==false){
+                alert("이메일 형식이 아닙니다.")
+            }
+            else if(pw == ''){
+                alert('비밀번호를 입력하세요');
+            }
+            else if(pw.length <6){
+                alert('비밀번호 6글자 이상 입력하세요')
+            }
+            //정규식을 사용하여 대문자가 있는지 검사
+            else if(/[A-Z]/.test(pw)==false){
+                alert('비밀번호에 대문자를 입력해주세요')
+            }
+        }
+    </script>
+</body>
+</html>

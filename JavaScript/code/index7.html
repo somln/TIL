@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="alert alert-danger">
+       <span id="num">5</span>초 이내 구매시 사은품 증정
+      </div>
+
+        <script
+  src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  crossorigin="anonymous"></script>
+
+  <script>
+      var count = 5;
+      setInterval(function(){
+        count -= 1;
+        if (count >= 0){
+            $('#num').html(count);
+        }
+        else{
+            $('.alert').hide();
+        }
+    }, 1000);
+  </script>
+
+
+
+
+
+
+
+  </script>
+    
+</body>
+</html>
