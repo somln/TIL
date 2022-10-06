@@ -78,7 +78,7 @@ ul.list {
 
 <br>
 
-1) 정리되지 않은 코드
+### 1) 정리되지 않은 코드
 
 ```js
 $('.tab-button').eq(0).on('click', function(){
@@ -105,20 +105,63 @@ $('.tab-button').eq(2).on('click', function(){
 
 <br>
 
-2) 반복문 사용
+### 2) 반복문 사용
 ```js
+
 var n = $( '.tab-content' ).length;
 
 for(let i=0; i<n; i++){
-    $('.tab-button').eq(i).on('click', function(){
+        $('.tab-button').eq(i).on('click',function(){
+          openTab(i)
+        })
+      }
+
+      function openTab(n){
         $('.tab-button').removeClass('orange');
-        $('.tab-button').eq(i).addClass('orange');
+        $('.tab-button').eq(n).addClass('orange');
         $('.tab-content').removeClass('show');
-        $('.tab-content').eq(i).addClass('show');
-      })
-}
+        $('.tab-content').eq(n).addClass('show');
+      } 
 ```
 -> 반복문을 사용하면 코드의 반복을 줄일 수 있다.           
 -> for 문 안에는 var 변수가 아닌 let 변수를 사용한다.
 
+<br>
 
+### 3) 이벤트 버블링 사용
+이벤트 버블링을 활용하면 이벤트 리스너를 3개에서 1개로 줄일 수 있다.
+
+```js
+for(let i=0; i<3; i++){
+        $('.list').click(function(e){
+          if($(e.target).is($('.tab-button').eq(i))){
+            openTab(i)
+          }
+        }
+     )};
+```
+list 요소가 버튼1,2,3의 상위 요소이기 때문에 어떤 버튼을 클릭해도 list도 같이 클릭한 것으로 된다. 따라서 이벤트 리스너를 한 번만 사용한 후, 클릭한 버튼이 몇 번째 버튼인지 확인하는 코드를 넣으면 이벤트 리스너의 개수를 줄일 수 있다.
+따라서, 버튼의 개수가 훨씬 더 많을 경우 이벤트리스너를 줄이면 램용량을 절약할 수 있다.
+
+<br>
+
+### 4) dataset 사용
+
+>dataset: 데이터 속성은 HTML 요소의 'data-' 로 시작하는 속성이다. 이러한 데이터 속성은 특정한 데이터를 DOM 요소에 저장해두기 위함이 목적이다. 문법:<div data-데이터이름="값"></div> 
+
+<br>
+
+```html
+<li class="tab-button" data-id="0">Products</li>
+<li class="tab-button" data-id="1">Information</li>
+<li class="tab-button" data-id="2">Shipping</li>
+```
+
+```js
+//버튼을 클릭하면 해당 버튼의 아이디를 함수의 파라미터로 전달
+$('.list').click(function(e){
+  openTab(e.target.dataset.id) 
+}
+  //dataset 가져오는 법
+  //document.querySelector().dataset.데이터이름
+```
