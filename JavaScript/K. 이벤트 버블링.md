@@ -23,7 +23,8 @@
       </div> 
 ```
 
-<img src="화면 캡처 2022-10-06 145156.png" width="50%" height="150px" title="Github_Logo"/>
+<img src="<img width="958" alt="image" src="https://user-images.githubusercontent.com/92261242/194243698-367a0717-d7cd-4c5a-a1d9-e108074b80d1.png">
+" width="50%" height="150px" title="Github_Logo"/>
 
 
 <br>
