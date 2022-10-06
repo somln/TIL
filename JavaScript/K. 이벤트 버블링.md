@@ -23,8 +23,7 @@
       </div> 
 ```
 
-<img src="<img width="958" alt="image" src="https://user-images.githubusercontent.com/92261242/194243698-367a0717-d7cd-4c5a-a1d9-e108074b80d1.png">
-" width="50%" height="150px" title="Github_Logo"/>
+<img width="958" alt="image" src="https://user-images.githubusercontent.com/92261242/194243792-c80b0956-e343-47d1-9c16-09214010d416.png">
 
 
 <br>
