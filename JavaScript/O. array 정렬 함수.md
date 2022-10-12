@@ -65,6 +65,8 @@ var arr2 = arr. map(function(a){
 2. "상품명 다나가순 정렬" 버튼과 기능을 만들기
 3. "6만원 이하 상품보기" 버튼과 기능을 만들기
 
+<img width="879" alt="image" src="https://user-images.githubusercontent.com/92261242/195321067-a3b3593a-2ea9-4c55-93a5-b606958b7988.png">
+
 ```html
 <div class="container">
       <button class="btn btn-danger btn-sort">낮은 가격순</button>
