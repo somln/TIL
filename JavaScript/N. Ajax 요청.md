@@ -42,6 +42,7 @@
 
 AJAX는 HTML 페이지 전체가 아닌 일부분만 갱신할 수 있도록 XMLHttpRequest객체를 통해 서버에 request한다. 이 경우, JSON이나 XML형태로 필요한 데이터만 받아 갱신하기 때문에 그만큼의 자원과 시간을 아낄 수 있다.
 
+
 ### 2. jQuery로 AJAX요청하기 
 1) get
 ```js
