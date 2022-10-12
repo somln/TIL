@@ -42,6 +42,8 @@
 
 AJAX는 HTML 페이지 전체가 아닌 일부분만 갱신할 수 있도록 XMLHttpRequest객체를 통해 서버에 request한다. 이 경우, JSON이나 XML형태로 필요한 데이터만 받아 갱신하기 때문에 그만큼의 자원과 시간을 아낄 수 있다.
 
+<br>
+
 ### 2. jQuery로 AJAX요청하기 
 1) get
 ```js
@@ -67,6 +69,8 @@ $.get('https://codingapple1.github.io/hello.txt')
   });
 ```
 
+<br>
+
 ### 3. Ajax를 사용하여 상품 더보기 버튼 만들기
 1. 기본 상품 카드 레이아웃 출력하기
 2. 더보기 버튼을 하나 만들기
@@ -75,6 +79,9 @@ $.get('https://codingapple1.github.io/hello.txt')
 5. 더보기 버튼 한번 더 누르면 두 번째 URL로 GET요청하여 상품 3개 데이터를 더 받아오기
 6. 받아온 데이터로 카드 레이아웃 3개 더 만들기
 7. 더 이상의 데이터가 없으므로 더보기 버튼 삭제하기
+
+<img width="907" alt="image" src="https://user-images.githubusercontent.com/92261242/195267807-8ee5a3af-9ee5-47e2-854b-28d3f861a379.png">
+
 
 ```js
 //더보기 버튼 생성
