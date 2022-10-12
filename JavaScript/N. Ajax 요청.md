@@ -58,7 +58,7 @@ $.get('https://codingapple1.github.io/hello.txt').done(function(data){
 $.post('https://codingapple1.github.io/hello.txt', {name : 'kim'})
 ```
 
-3)Ajax 요청 실패시
+3) Ajax 요청 실패시
 ```js
 $.get('https://codingapple1.github.io/hello.txt')
   .done(function(data){
