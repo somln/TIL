@@ -1,9 +1,6 @@
 # Ajax 통신
 
 ### 1. 서버와 요청에 대한 용어 정리
-
-<br>
-
 #### 1. 서버란?
 > 클라이언트의 요청을 받으면 서비스, 데이터를 제공하는 컴퓨터 혹은 프로그램
 
@@ -42,6 +39,10 @@
 
 AJAX는 HTML 페이지 전체가 아닌 일부분만 갱신할 수 있도록 XMLHttpRequest객체를 통해 서버에 request한다. 이 경우, JSON이나 XML형태로 필요한 데이터만 받아 갱신하기 때문에 그만큼의 자원과 시간을 아낄 수 있다.
 
+<<<<<<< HEAD
+=======
+<br>
+>>>>>>> 76e323d26ce0b43ec9bd268c7caac2b9b9191c41
 
 ### 2. jQuery로 AJAX요청하기 
 1) get
@@ -57,7 +58,7 @@ $.get('https://codingapple1.github.io/hello.txt').done(function(data){
 $.post('https://codingapple1.github.io/hello.txt', {name : 'kim'})
 ```
 
-3)Ajax 요청 실패시
+3) Ajax 요청 실패시
 ```js
 $.get('https://codingapple1.github.io/hello.txt')
   .done(function(data){
@@ -68,6 +69,8 @@ $.get('https://codingapple1.github.io/hello.txt')
   });
 ```
 
+<br>
+
 ### 3. Ajax를 사용하여 상품 더보기 버튼 만들기
 1. 기본 상품 카드 레이아웃 출력하기
 2. 더보기 버튼을 하나 만들기
@@ -76,6 +79,9 @@ $.get('https://codingapple1.github.io/hello.txt')
 5. 더보기 버튼 한번 더 누르면 두 번째 URL로 GET요청하여 상품 3개 데이터를 더 받아오기
 6. 받아온 데이터로 카드 레이아웃 3개 더 만들기
 7. 더 이상의 데이터가 없으므로 더보기 버튼 삭제하기
+
+<img width="907" alt="image" src="https://user-images.githubusercontent.com/92261242/195267807-8ee5a3af-9ee5-47e2-854b-28d3f861a379.png">
+
 
 ```js
 //더보기 버튼 생성
