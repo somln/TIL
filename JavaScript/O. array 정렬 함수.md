@@ -33,9 +33,9 @@ arr.sort(function (a, b) {
     else if (b > a) return 1;
     else return 0;
   });
-```
 //a>b일 경우 b가 오른쪽으로
 //b>a일 경우 a가 오른쪽으로
+```
 <br>
 
 ### 2. filter
