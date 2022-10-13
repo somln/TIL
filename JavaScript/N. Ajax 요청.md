@@ -69,6 +69,11 @@ $.get('https://codingapple1.github.io/hello.txt')
   });
 ```
 
+4) JSON이란?        
+>데이터를 쉽게 ' 교환 ' 하고 ' 저장 ' 하기 위한 텍스트 기반의 데이터 교환 표준    
+
+서버와 데이터를 주고받을 때는 문자만 주고받을 수 있다. 따라서 array, object 는 전송이 불가능하기 때문에 object를 JSON으로 바꿔서 전송해야한다. array 아니면 object에 따옴표를 쳐서 '{ "price" : 5000 }' 이렇게 만들면 JSON이라는 자료가 된다. JSON은 문자로 인식하기 때문에 서버와 데이터주고받기가 가능하다. jQuery의 $.get()는 JSON으로 자료가 도착하면 알아서 array/object 자료로 바꿔주기 때문에 편리하다.
+
 <br>
 
 ### 3. Ajax를 사용하여 상품 더보기 버튼 만들기
