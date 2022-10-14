@@ -383,39 +383,31 @@ $.post('https://codingapple1.github.io/hello.txt', {name : 'kim'})
 
  ### 1. sort
 배열의 요소를 오름차순 또는 내림차순으로 정렬
-#### 1. 숫자 오름차순
 ```js
+//1. 숫자 오름차순
 var arr=[30,5,2,47,15]
 arr.sort(function(a,b){
     return a-b;
 });
-//a-b가 양수일 경우 a를 오른쪽으로
-//a-b가 음수일 경우 b를 오른쪽으로
-```
-#### 2. 숫자 내림차순
-```js
+
+// 2. 숫자 내림차순
 arr=[30,5,2,47,15]
 arr.sort(function(a,b){
     return b-a;
 });
-//b-a가 양수일 경우 a를 오른쪽으로
-//b-a가 음수일 경우 b를 오른쪽으로
-```
-#### 3. 문자 오름차순
-```js
+
+//3. 문자 오름차순
 var arr=['나','라','가','다']
 arr.sort();
-```
-#### 4. 문자 내림차순
-```js
+
+//4. 문자 내림차순
 var arr=['나','라','가','다']
 arr.sort(function (a, b) {
     if (a > b) return -1;
     else if (b > a) return 1;
     else return 0;
   });
-//a>b일 경우 b가 오른쪽으로
-//b>a일 경우 a가 오른쪽으로
+
 ```
 <br>
 
