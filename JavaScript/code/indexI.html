@@ -9,7 +9,7 @@
     <div style="overflow: hidden">
         <div class="slide-container">
           <div class="slide-box">
-            <img src="car1.png">
+            <img src="car1.png" draggable="false">
           </div>
           <div class="slide-box">
             <img src="car2.png">
@@ -88,6 +88,40 @@
        });
 
     </script>
+
+<script>
+  var startX = 0; //마우스 클릭 위치
+    var check=false;  //마우스를 누른 상태인지 표시
+  
+  $('.slide-box').eq(0).on('mousedown', function(e){  //마우스를 클릭했을 때
+    startX = e.clientX; //클릭 위치 저장
+    check=true;  //마우스 누른 상태
+  });
+  
+  $('.slide-box').eq(0).on('mousemove', function(e){  //마우스를 움직일 때
+    console.log(e.clientX - startX)
+    if(check==true){  //마우스를 누른 상태이면
+      $('.slide-container').css('transform', `translateX( ${e.clientX - startX}px )`)  //이동거리만큼 그림 이동
+    }
+    
+  });
+  
+  $('.slide-box').eq(0).on('mouseup', function(e){  //마우스를 땠을 때
+      check = false;  //마우스를 누르지 않은 상태
+  
+      if (e.clientX -startX <= -300) {  //오른쪽으로 이동한 거리가 300 이상이면
+        $('.slide-container').css('transition', 'all 1s').css('transform', 'translateX(-100vw)'); //다음 그림으로 이동
+      } else {  //오른쪽으로 이동한 거리가 300 미만이면
+        $('.slide-container').css('transition', 'all 1s').css('transform', 'translateX(0vw)');  //다시 첫번째 그림으로 이동
+      }
+  
+      //평소엔 transition이 필요가 없는데 사진에서 사진에서 마우스를 떼면 transition이 필요함 
+      //"마우스 떼면 잠깐 1초정도 transition 붙였다가 제거하라는 코드를 작성해야 함
+      setTimeout(function(){  
+        $('.slide-container').css('transition', 'none')
+       }, 1000);
+    });
+</script>
 
 </body>
 </html>

@@ -63,7 +63,7 @@ console.log(reArr); //출력하면 원래 array 형식대로 출력됨
  </script>
 ```
 <br>
-update 1 :같은 상품은 중복으로 추가되지 않게 설정 
+update: 같은 상품은 중복으로 추가되지 않게 설정 
 
 ```html
 <script>
@@ -83,7 +83,5 @@ update 1 :같은 상품은 중복으로 추가되지 않게 설정
             }
         }
     })
-
 </script>
 ```
-update 2 :같은 상품 구매 누르면 상품 갯수 올라가도록 설정

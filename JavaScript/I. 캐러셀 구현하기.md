@@ -127,3 +127,64 @@ $('.slide-prev').on('click', function() {
         page--;
     });
 ```
+
+<br>
+
+--------------------------------------------------------------------------
+
+<br>
+
+## 스와이프 기능
+> 스와이프: 터치 혹은 클릭을 한 후, 일직선으로 드래그하는 것
+
+### 1. mouse 이벤트
+* mousedown: 어떤 요소에 마우스버튼 눌렀을 때
+* mouseup: 어떤 요소에 마우스버튼 뗐을 때
+* mousemove: 어떤 요소위에서 마우스 이동할 때
+```
+//마우스가 이동할 때 마다 콘솔에 마우스 x의 좌표 출력하기
+$('.slide-box').eq(0).on('mousemove', function(e){
+    console.log(e.clientX)
+  })
+```
+
+<br>
+
+### 2. 스와이프 기능 구현하기
+ 1. 사진1을 왼쪽으로 드래그한 거리만큼 사진1도 왼쪽으로 움직이도록 작성
+ 2. 마우스를 땠을 때 이동 거리가 300이상이면 사진2, 300 미만이면 사진 1 보여주도록 작성
+
+ ```js
+  var startX = 0; //마우스 클릭 위치
+  var check=false;  //마우스를 누른 상태인지 표시
+
+$('.slide-box').eq(0).on('mousedown', function(e){  //마우스를 클릭했을 때
+  startX = e.clientX; //클릭 위치 저장
+  check=true;  //마우스 누른 상태
+});
+
+$('.slide-box').eq(0).on('mousemove', function(e){  //마우스를 움직일 때
+  console.log(e.clientX - startX)
+  if(check==true){  //마우스를 누른 상태이면
+    $('.slide-container').css('transform', `translateX( ${e.clientX - startX}px )`)  //이동거리만큼 그림 이동
+  }
+  
+});
+
+$('.slide-box').eq(0).on('mouseup', function(e){  //마우스를 땠을 때
+    check = false;  //마우스를 누르지 않은 상태
+
+    if (e.clientX -startX <= -300) {  //오른쪽으로 이동한 거리가 300 이상이면
+      $('.slide-container').css('transition', 'all 1s').css('transform', 'translateX(-100vw)'); //다음 그림으로 이동
+    } else {  //오른쪽으로 이동한 거리가 300 미만이면
+      $('.slide-container').css('transition', 'all 1s').css('transform', 'translateX(0vw)');  //다시 첫번째 그림으로 이동
+    }
+
+    //평소엔 transition이 필요가 없는데 사진에서 사진에서 마우스를 떼면 transition이 필요함 
+    //"마우스 떼면 잠깐 1초정도 transition 붙였다가 제거하라는 코드를 작성해야 함
+    setTimeout(function(){  
+      $('.slide-container').css('transition', 'none')
+     }, 1000);
+  });
+  
+```
