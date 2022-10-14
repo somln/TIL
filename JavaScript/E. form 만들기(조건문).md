@@ -38,7 +38,7 @@ $('#send').on('click', function(){
   else if($('#pw').val().length <6){
        alert('비밀번호 6글자 이상 입력하세요');
   } 
-});     
+ㄴ);     
  ```
  <br>
 
