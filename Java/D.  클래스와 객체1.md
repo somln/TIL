@@ -127,11 +127,12 @@ int add(int num1, int num2){
  * Student 클래스 자료형으로 studentAhn 변수를 선언하고 new Student();로 Student 클래스를 생성하여 studentAhn에 대입
  * 이때 studentAhn을 참조변수라고 하고, 이 변수는 생성된 인스턴스를 가리킨다.
 
+<br>
+
  ### 2) 클래스 사용: main 함수를 생성하여 사용
  main 함수:
  JVM(자바 가상 머신)이 프로그램을 시작하기 위해 호출하는 함수
  
- <br>
 
 #### 1. class 내부에 main 함수를 포함하여 실행
 class 내부에 생성되긴 하지만 class의 메서드는 아니다.
@@ -167,6 +168,7 @@ public class Student {
 		System.out.println(studentAhn.getStudentName());
 	}
  ```
+<br>
 
  #### 2. main()함수를 포함한 실행 클래스 따로 만들기
  ```java
@@ -226,6 +228,8 @@ System.out.println(studentLee);
 	* 클래스에매개변수가 있는 생성자를 추가하면 디폴트 생성자는 제공되지 않는다.
 	* 매개변수와 기능은 따로 존재하지 않는다. 
 
+<br>
+
 생성자 만들기
 ```java 
 public class Student{
@@ -250,6 +254,8 @@ public class Student{
 
 위와 같이 코드를 작성할 경우, 생성자를 직업 추가하여 디폴트 생성자가 만들어지지 않았기 때문에 에러가 발생한다.
 
+<br>
+
 해결 방법1: 매개변수가 있는 생성자로 호출한다. main함수에서 클래스를 생성할 때 생성자에게 매개변수를 입력해준다.       
 ```java 
 public class Student{
@@ -270,6 +276,7 @@ public class Student{
 	}
 }
 ```
+<br>
 
 해결 방법 2: 디폴트 생성자를 직접 추가한다.         
 -> "생성자 오버로드" : 같은 이름을 가진 생성자가 존재, 필요한 생성자를 골라서 사용 가능
@@ -297,6 +304,7 @@ public class Student{
 	}
 }
 ```
+<br>
 
 ## 6. 참조 자료형 
 : 클래스 자료형으로 선언하는 변수
@@ -304,25 +312,6 @@ public class Student{
 하나의 클래스 안에 모든 정보를 다 저장할 필요는 없고, 변수가 늘어날 수록 코드가 길어지게 된다. 따라서 클래스 안에 클래스 자료형을 선언하여 더 편리하게 사용할 수 있다.
 
 ### 1) 클래스 자료형 생성하기
-
-#### 하나의 클래스 안에 모든 정보를 저장하는 경우
-```java 
-package reference;
-
-public class Student{
-	
-	int studentID;
-	String studentName;
-	int koreaScore;
-	int mathScore;
-	String koreaSubject;
-	String mathSubject;
-}
-```
-
-<br>
-
-#### 과목에 대한 정보를 저장하는 클래스를 따로 만드는 경우
 
 ```java 
 package reference;
@@ -452,6 +441,7 @@ public class Student {
 	}
 }
 ```
+<br>
 
 #### main 함수를 생성하여 위 코드의 실행 확인하기
 ```java
