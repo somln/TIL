@@ -122,7 +122,7 @@ int add(int num1, int num2){
 * new 예약어를 사용하여 클래스 생성
 * 생성 방법: 클래스형 변수이름 = new 생성자;
  ```java
- Student studentAhn = new Student()
+ Student studentAhn = new Student();
  ```
  * Student 클래스 자료형으로 studentAhn 변수를 선언하고 new Student();로 Student 클래스를 생성하여 studentAhn에 대입
  * 이때 studentAhn을 참조변수라고 하고, 이 변수는 생성된 인스턴스를 가리킨다.
@@ -297,5 +297,185 @@ public class Student{
 	}
 }
 ```
+
+## 6. 참조 자료형 
+: 클래스 자료형으로 선언하는 변수
+
+하나의 클래스 안에 모든 정보를 다 저장할 필요는 없고, 변수가 늘어날 수록 코드가 길어지게 된다. 따라서 클래스 안에 클래스 자료형을 선언하여 더 편리하게 사용할 수 있다.
+
+### 1) 클래스 자료형 생성하기
+
+#### 하나의 클래스 안에 모든 정보를 저장하는 경우
+```java 
+package reference;
+
+public class Student{
+	
+	int studentID;
+	String studentName;
+	int koreaScore;
+	int mathScore;
+	String koreaSubject;
+	String mathSubject;
+}
+```
+
+<br>
+
+#### 과목에 대한 정보를 저장하는 클래스를 따로 만드는 경우
+
+```java 
+package reference;
+
+public class Subject {
+
+	String subjectName;
+	int scorePoint;
+}
+```
+
+```java 
+package reference;
+
+public class Student {
+
+	int studentID;
+	String studentName;
+	Subject korean;
+	Subject math;
+	
+	public Student(){
+		korean = new Subject();
+		math = new Subject();
+	}
+}
+```
+클래스 안에서 다른 클래스를 참조 변수형으로 가져다 쓰기 위해서는           
+1. 멤버 변수를 선언할 때 해당 클래스를 자료형으로 사용하여 변수를 선언한다.
+2. 선언을 한다고 클래스가 만들어지는 것은 아니기 때문에, 생성자에서 참조 변수의 객체를 생성한다. 
+
+<br>
+
+### 2) 클래스 자료형 사용하기
+
+#### Student 클래스에서 Subject 클래스의 멤버 변수를 사용하여 메소드 생성
+```java 
+package reference;
+
+public class Student {
+	
+	int studentID;
+	String studentName;
+	Subject korean;
+	Subject math;
+	
+	public Student(){
+		korean = new Subject();
+		math = new Subject();
+	}
+	
+	public void setKorean(String name, int score)
+	{
+		korean.subjectName = name;
+		korean.scorePoint = score;
+	}
+	
+	public void setMath(String name, int score)
+	{
+		math.subjectName = name;
+		math.scorePoint = score;
+	}
+
+}
+```
+
+<br>
+
+#### Student 클래스에서 Subject 클래스의 메소드 사용하여 메소드 생성
+```java 
+package reference;
+
+public class Subject {
+	String subjectName;
+	int scorePoint;
+	
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	public int getScorePoint() {
+		return scorePoint;
+	}
+	public void setScorePoint(int scorePoint) {
+		this.scorePoint = scorePoint;
+	}
+	
+}
+```
+
+```java 
+package reference;
+
+public class Student {
+
+	int studentID;
+	String studentName;
+	Subject korean;
+	Subject math;
+	
+	public Student(int studentID, String studentName){
+		this.studentID = studentID;
+		this.studentName = studentName;
+		
+		korean = new Subject();
+		math = new Subject();
+	}
+	
+	public void setKorean(String name, int score)
+	{
+		korean.setSubjectName(name);;
+		korean.setScorePoint(score);;
+	}
+	
+	public void setMath(String name, int score)
+	{
+		math.setSubjectName(name);;
+		math.setScorePoint(score);
+	}
+	
+	public void showStudentInfo()
+	{
+		int total = korean.getScorePoint() + math.getScorePoint();
+		System.out.println(studentName + "학생의 총점은 " + total + "점 입니다 .");
+	}
+}
+```
+
+#### main 함수를 생성하여 위 코드의 실행 확인하기
+```java
+package reference;
+
+public class StudentTest {
+
+	public static void main(String[] args) {
+		
+		Student studentJames= new Student(100, "james");
+		
+		studentJames.setKorean("국어",100);
+		studentJames.setMath("수학",100);
+		
+        Student studentKim = new Student(102, "Kim");
+		
+		studentKim.setKorean("국어", 70);
+		studentKim.setMath("수학", 85);
+		
+		studentJames.showStudentInfo();
+		studentKim.showStudentInfo();
+	}
+}
+```
+
 
 
