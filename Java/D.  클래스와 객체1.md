@@ -207,8 +207,8 @@ System.out.println(studentLee);
 * 객체: 객체 지향 프로그램의 대상, 생성된 인스턴스
 * 클래스: 객체를 프로그래밍하기 위해 코드로 만든 상태
 * 인스턴스: 클래스가 메모리에 생성된 상태
-* 멤버 변수: 클래스의 속성, 툭성
-* 메서드: 멤버 변수를 이용하여 클래스이 기능을 구현
+* 멤버 변수: 클래스의 속성, 특성
+* 메서드: 멤버 변수를 이용하여 클래스에 기능을 구현
 * 참조 변수: 메모리에 생성된 인스턴스를 가리키는 변수
 * 참조 값: 생성된 인스턴스의 메모리 주소 값
 
@@ -385,8 +385,8 @@ public class Student {
 package reference;
 
 public class Subject {
-	String subjectName;
-	int scorePoint;
+	Point;String subjectName;
+	int score;
 	
 	public String getSubjectName() {
 		return subjectName;
@@ -421,7 +421,8 @@ public class Student {
 		korean = new Subject();
 		math = new Subject();
 	}
-	
+
+
 	public void setKorean(String name, int score)
 	{
 		korean.setSubjectName(name);;
@@ -467,5 +468,190 @@ public class StudentTest {
 }
 ```
 
+<br>
+
+#### 참조자료형 다른 예시
+```java
+//Event.java
+package referenceEx;
+
+public class Event {
+	String eventName;
+	int try1;
+	int try2;
+	
+	public Event(String name) {
+		this.eventName=name;
+	}
+	
+	public int getTry1() {
+		return try1;
+	}
+	public void setTry1(int try1) {
+		this.try1 = try1;
+	}
+	public int getTry2() {
+		return try2;
+	}
+	public void setTry2(int try2) {
+		this.try2 = try2;
+	}
+	
+}
+```
+
+```java
+//Member.java
+package referenceEx;
+
+public class Member {
+	
+	String memberName;
+	int memberID;
+	Event soccer;
+	Event basketball;
+	
+	public Member(String name, int ID){
+		
+		this.memberName=name;
+		this.memberID=ID;
+		
+		soccer=new Event("축구");
+		basketball=new Event("농구");
+	}
+	
+	public void setSoccer(int score1, int score2) {
+	    soccer.setTry1(score1);
+		soccer.setTry2(score2);
+		
+	}
+	
+	public void setBasketball(int score1, int score2) {
+	    basketball.setTry1(score1);
+		basketball.setTry2(score2);
+	}
+		
+	
+	public void showMembersInfor() {
+		int try1Total=soccer.getTry1()+basketball.getTry1();
+		int try2Total=soccer.getTry2()+basketball.getTry2();
+		System.out.println("이름: "+memberName+ ", ID: "+memberID+", 시도1_총점:"+ try1Total+ ", 시도2_총점: "+try2Total);
+	}
+	
+}
+```
+
+```java
+//MemberTest.java
+
+package referenceEx;
+
+public class MemberTest {
+
+	public static void main(String[] args) {
+		
+		Member member1=new Member("park",10);
+		Member member2=new Member("Kim",15);
+		
+		member1.setSoccer(70, 90);
+		member1.setBasketball(100, 50);
+		
+		member2.setSoccer(85, 100);
+		member2.setBasketball(80, 80);
+
+		member1.showMembersInfor();
+		member2.showMembersInfor();
+	}
+}
+```
+
+## 7. 정보 은닉
+
+### 1) 접근 제어자
+객체 지향 프로그램에서는 예약어를 사용해 클래스 내부의 변수나 메서드, 생성자에 대한 접근 권한을 지정할 수 있다.
+
+* public: 외부 클래스에서 접근이 가능하며, 외부 클래스가 사용할 수 있다.
+* private: 외부 클래스에서 사용할 수 없으며 해당 클래스에서만 사용할 수 있다.
+* 아무 것도 없는 경우: default 이며 같은 패키ㅣㅈ 내부에서만 접근할 수 있다.
+
+<br>
+
+### 2) privite 변수에 접근하는 방법
+get(), set() 메서드를 통해서 접근할 수 있다.
+```java
+
+package hiding;
+
+public class Student {
+	
+	int studentID;
+	private String studentName;
+	int grade;
+	String address;
+	
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+}
+```
+```java
+package hiding;
+
+public class StudentTest {
+
+	public static void main(String[] args) {
+		Student studentLee = new Student();
+		studentLee.setStudentName("Park");
+		System.out.println(studentLee.getStudentName());
+	}
+}
+```
+
+<br>
+
+### 3) 정보 은닉
+클래스 내부에서 사용할 변수나 메서드를 private로 선언해서 외부에서 접근하지 못하도록 하는 것.        
+외부에서 접근하지 못하도록 하는 이유: 정보의 오류가 발생할 수 있기 때문이다.
+
+```java
+public class clock{
+	public int time;
+	public int min;
+}
+
+public static void main(String[] args){
+	time=31;
+	min=90;
+}
+```
+ 위와 같이 누군가가 시계에 접근해서 존재하지않는 31시간 90분 이라고 입력하게 되면 문제가 생길 것이다.  때문에 외부에서 누군가가 접근하지 못하게 정보 은닉이 필요하다. 따라서 접근 제어자를 public -> private로 변경하고 오류가 발생하면 해당 변수에 접근하지 못하도록 코드를 작성하면 오류를 막을 수 있다.
+
+
+ ```java
+public class clock{
+	private int time;
+	private int min;
+    
+  public setTime(int time){
+    	if(time<0 || time>23){
+        	system.out.println("시간 오류입니다.");
+    	}else{
+        	this.time = time;
+        }
+    }
+  public setMin(int min){
+    	if(min<0 || min>59){
+        	system.out.println("분 오류입니다.");
+    	}else{
+        	this.min = min;
+        }
+    }
+}
+```
 
 
