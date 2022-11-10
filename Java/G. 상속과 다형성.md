@@ -293,7 +293,7 @@ public class CustomerTest1 {
 	}
 }
 ```
---> customerLee는 Customer Class의 calaPrice가, customerKimdms VIPCustomer Class의 calaPrice가 호출되었다.
+--> customerLee는 Customer Class의 calaPrice가, customerKim은 VIPCustomer Class의 calaPrice가 호출되었다.
 
 <br>
 
@@ -312,7 +312,7 @@ System.out.println("지불 금액은 "+customerWho.calcPrice(10000)+"원이고, 
 <br>
 
 ## 4. 다형성
-### 1) 다형성이란?
+### 다형성이란?
 다형성이란 하나의 코드가 여러 자료형으로 구현되어 실행되는 것을 말한다. 쉽게 말해 같은 코드에서 여러 실행 결과가 나오는 것이다.
  
 AnimalTest1
@@ -348,10 +348,11 @@ public class AnimalTest1 {
 	public static void main(String[] args) {
 		AnimalTest1 aTest = new  AnimalTest1();
 		aTest.moveAnimal(new Human());
+		//사람이 두 발로 걷습니다.
 		aTest.moveAnimal(new Tiger());
+		//호랑이가 네 발로 뜁니다.
 		aTest.moveAnimal(new Eagle());
-		
-		Animal animal = new Human();
+		//독수리가 하늘을 납니다.
 	}
 	
 	public void moveAnimal(Animal animal) {
@@ -360,6 +361,8 @@ public class AnimalTest1 {
 }
 
 ```
+-->animal.move(); 한 줄의 코드로 다른 결과가 출력됨
+
 1. 상위 클래스 Animal 생성, move 메서드 생성
 2. 하위 클래스 Human, Tiger, Eagle 생성, move 메서드 오버라이딩
 3. 메인함수를 포함하는 클래스 AnimalTest1 생성, moveAnimal 메서드 생성, moveAnimal 메서드를 사용하기 위한 AnimalTest1 인스턴스 생성
@@ -378,4 +381,257 @@ public class AnimalTest1 {
 #### 다형성의 장점
 * 새로운 동물도 Animal 클래스를 상속받아 구현한 뒤, Animal 클래스로 형 변환을 하면 모든 클래스를 Animal 자료형 하나로 쉽게 관리할 수 있다.
 * 상속받은 모든 클래스를 하나의 상위 클래스로 처리할 수 있고 다형성에 의해 각 클래스의 여러가지 구현을 쉽게 실행할 수 있으므로 프로그램을 쉽게 확장할 수 있다.
+
+<br>
+
+## 5. 다형성 활용하기
+### 1) 다형성을 활용해 VIP 고객 클래스 완성하기
+ 2) 다형성을 활용해 VIP 고객 클래스 완성하기
+* 일반 고객과 VIP 고객의 중간 등급의 고객을 생성
+* 5명의 고객을 ArrayList에 생성하여 저장
+* 각 고객이 물건을 샀을 때의 가격과 보너스 포인트를 계산
+
+<br>
+
+VIPCustomer
+```java
+package witharraylist;
+
+public class VIPCustomer extends Customer{
+
+	private int agentID;  
+	double saleRatio;
+	
+	//VIPCustomer 생성자
+	public VIPCustomer(int customerID, String customerName, int agentID)
+	{
+		super(customerID, customerName); 
+		customerGrade = "VIP"; 
+		bonusRatio = 0.05;  
+		saleRatio = 0.1; 
+		this.agentID=agentID;
+	}
+	
+	//계산 메서드 재정의
+	@Override
+	public int calcPrice(int price){
+		bonusPoint += price * bonusRatio;
+		return price - (int)(price*saleRatio);
+	}
+	
+	//정보 출력 메서드 재정의
+	@Override
+	public String showCustomerInfo() {
+		return super.showCustomerInfo()+ " 담당 상담원 번호는"+ agentID+ "입니다";
+	}
+	
+	//담당자는 바꿀 수 없기 때문에 get 메서드만 지원
+	public int getAgentID() {
+		return agentID;
+	}
+}
+
+```
+
+<br>
+
+GoldCustomer
+```java
+package witharraylist;
+
+public class GoldCustomer extends Customer {
+	
+	double saleRatio;
+	
+	//GoldCustomer 생성자
+	public GoldCustomer(int customerID, String customerName) {
+		super(customerID, customerName);
+		customerGrade = "Gold"; 
+		bonusRatio = 0.02;  
+		saleRatio = 0.1;
+	}
+	
+	//가격 계산 메서드 재정의
+	@Override
+	public int calcPrice(int price){
+		bonusPoint += price * bonusRatio;
+		return price - (int)(price*saleRatio);
+	}
+}
+
+```
+
+<br>
+
+CustomerTest
+```java
+package witharraylist;
+
+import java.util.ArrayList;
+
+public class CustomerTest {
+	
+	public static void main(String[] args) {
+		
+		ArrayList<Customer> customerlist = new ArrayList<Customer>();
+		
+		Customer customer1= new Customer(10010, "이순신");
+		Customer customer2= new Customer(10020, "신사임당");
+		VIPCustomer customer3= new VIPCustomer(10030, "홍길동", 10);
+		VIPCustomer customer4= new VIPCustomer(10040, "이율곡", 11);
+		GoldCustomer customer5= new GoldCustomer(10050, "김유신");
+		GoldCustomer customer6= new GoldCustomer(10060, "정약용");
+		
+		customerlist.add(customer1);
+		customerlist.add(customer2);
+		customerlist.add(customer3);
+		customerlist.add(customer4);
+		customerlist.add(customer5);
+		customerlist.add(customer6);
+		
+		System.out.println("==== 고객 정보 출력 ====");
+		for(Customer customer:customerlist) {
+			System.out.println(customer.showCustomerInfo());
+		}
+		
+		System.out.println("==== 할인울과 보너스 포인트 계산====");
+		for(Customer customer:customerlist) {
+			int cost=customer.calcPrice(10000);
+			System.out.println(customer.getCustomerName()+"님이 "+cost+"원 지불하셨습니다.");
+			System.out.println(customer.getCustomerName()+"님의 현재 보너스 포인트는 "+ customer.bonusPoint+"점 입니다.");
+		}
+	}
+}
+```
+#### 실행 결과
+==== 고객 정보 출력 ====   
+이순신 님의 등급은 SILVER이며, 보너스 포인트는 0입니다.              
+신사임당 님의 등급은 SILVER이며, 보너스 포인트는 0입니다.     
+홍길동 님의 등급은 VIP이며, 보너스 포인트는 0입니다. 담당 상담원 번호는10입니다            
+이율곡 님의 등급은 VIP이며, 보너스 포인트는 0입니다. 담당 상담원 번호는11입니다     
+김유신 님의 등급은 Gold이며, 보너스 포인트는 0입니다.      
+정약용 님의 등급은 Gold이며, 보너스 포인트는 0입니다.           
+==== 할인울과 보너스 포인트 계산====        
+이순신님이 10000원 지불하셨습니다.     
+이순신님의 현재 보너스 포인트는 100점 입니다.      
+신사임당님이 10000원 지불하셨습니다.       
+신사임당님의 현재 보너스 포인트는 100점 입니다.       
+홍길동님이 9000원 지불하셨습니다.       
+홍길동님의 현재 보너스 포인트는 500점 입니다.        
+이율곡님이 9000원 지불하셨습니다.       
+이율곡님의 현재 보너스 포인트는 500점 입니다.             
+김유신님이 9000원 지불하셨습니다.               
+김유신님의 현재 보너스 포인트는 200점 입니다.               
+정약용님이 9000원 지불하셨습니다.    
+정약용님의 현재 보너스 포인트는 200점 입니다.                  
+
+<br>
+
+#### 실행 과정
+1. VIPCustomer class 에서 정보 출력 메서드 재정의
+2. GoldCustomer class를 생성하여 가격 계산 메서드 재정의
+3. CustomerTest Class에서 자료형이 Customer인 배열 선언
+4. Customer, VIPCustomer, GoldCustomer 인스턴스 생성
+5. 생성한 모든 인스턴스를 CustomerList 배열에 추가하면 모두 Customer로 묵시적 형변환
+6. for문을 사용하여 Customer형으로 showCustomerInfo(), calaPrice()를 호출하면 실제 인스턴스가 무엇이냐에 따라 재정의한 메서드를 각각 호출하여 계산
+
+<br>
+
+### 2) 상속은 언제 사용할까?
+* IS-A 관계      
+일반적인 개념과 구체적인 개념의 관계   
+ex) 포유류와 사람, 원숭이, 고래                  
+--> 사용 O
+
+* HAS-A 관계
+한 클래스가 다른 클래스를 소유한 관계           
+ex) Student가 Subject를 포함                  
+--> 사용 X
+
+<br>
+
+## 6. 다운 캐스팅과 instanceof
+상위 클래스로 형 변환을 할 경우 하위 클래스에 다양한 멤버 변수가 있다고 해도 자료형이 변환된 상태에서는 사용할 수 없다. 따라서, 필요에 따라 원래 인스턴스의 자료형으로 돌아가야 하는 경우가 있는데, 이를 다운 캐스팅이라고 한다.
+
+* 하위 클래스가 상위 클래스로 형 변환 되는 것은 묵시적으로 이루어짐
+* 다시 원래 자료형인 하위 클래스로 형 변환을 하려면 명시적으로 다운 캐스팅을 해야함
+* 이때 원래 인스턴스의 타입을 체크하는 예약어가 instanceof
+
+```java
+package inheritance;
+
+class Animal{
+	public void move() {
+		System.out.println("동물이 움직입니다.");
+	}
+}
+
+class Human extends Animal{
+	public void move() {
+		System.out.println("사람이 두 발로 걷습니다.");
+	}
+	
+	public void readBook() {
+		System.out.println("사람이 책을 읽습니다.");
+	}
+}
+
+class Tiger extends Animal{
+	public void move() {
+		System.out.println("호랑이가 네 발로 뜁니다.");
+	}
+	
+	public void hunting() {
+		System.out.println("호랑이가 사냥을 합니다.");
+	}
+}
+
+class Eagle extends Animal{
+	public void move() {
+		System.out.println("독수리가 하늘을 납니다.");
+	}
+	
+	public void flying() {
+		System.out.println("독수리가 날개를 쭉 펴고 멀리 날아갑니다.");
+	}
+}
+
+public class AnimalTest1 {
+	public static void main(String[] args) {
+		AnimalTest1 aTest = new  AnimalTest1();
+		aTest.moveAnimal(new Human());
+		//사람이 두 발로 걷습니다. 
+        //사람이 책을 읽습니다. 
+		aTest.moveAnimal(new Tiger());
+		//호랑이가 네 발로 뜁니다.            
+        //호랑이가 사냥을 합니다.   
+		aTest.moveAnimal(new Eagle());
+		//독수리가 하늘을 납니다.   
+		//독수리가 날개를 쭉 펴고 멀리 날아갑니다. 
+	}
+	
+	public void moveAnimal(Animal animal) {
+		animal.move();
+		
+		if(animal instanceof Human) {
+			//animal의 인스턴스형이 Human일 경우
+			Human human = (Human)animal;
+			//animal을 Human으로 형 변환  -> 다운캐스팅
+			human.readBook();
+			//다운캐스팅 후 Human class의 readBook 메서드 사용 가능
+		}
+		else if(animal instanceof Tiger) {
+			Tiger tiger = (Tiger)animal;
+			tiger.hunting();
+		}
+		else if(animal instanceof Eagle) {
+			Eagle eagle = (Eagle)animal;
+			eagle.flying();
+		}
+		
+	}
+}
+```
+
+
 
