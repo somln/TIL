@@ -124,6 +124,10 @@ int add(int num1, int num2){
  ```java
  Student studentAhn = new Student();
  ```
+
+ <img src="https://mblogthumb-phinf.pstatic.net/MjAxNzAzMTFfOTMg/MDAxNDg5MTYyNjE4NzMw.nJSpcbg3xVNe4lVU_KGM15y1yjySr5eREgRABPi38_8g.kOeoQY8MXUaDEC5x4fXjgi9Qma0M-yHTD0P-_VqiW20g.PNG.heartflow89/image.png?type=w800"></img>
+
+
  * Student 클래스 자료형으로 studentAhn 변수를 선언하고 new Student();로 Student 클래스를 생성하여 studentAhn에 대입
  * 이때 studentAhn을 참조변수라고 하고, 이 변수는 생성된 인스턴스를 가리킨다.
 

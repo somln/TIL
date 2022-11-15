@@ -99,7 +99,7 @@ public class ComputerTest {
         //NoteBook Display()
 		c4.typing();
         //MyNoteBook Typing()
-	}	
+    }
 }
 
 ```
