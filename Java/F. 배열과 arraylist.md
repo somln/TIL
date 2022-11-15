@@ -1,0 +1,389 @@
+# 배열과 ArrayList
+
+## 1. 배열이란?
+
+### 1) 배열 선언과 초기화
+선언 방법:                
+  1) 자료형[] 배열이름 = new 자료형[개수];                
+     int[] arr = new int[10]
+  2) 자료형 배열이름[] = new 자료형[개수];         
+     int arr[] = new int[10]
+
+```java
+public class ArrayList {
+	
+	public static void main(String[] args) {
+		
+		//선언
+		int[] numbers = new int[10];
+		
+		//선언과 동시에 초기화(개수는 생략해야 함)
+		int[] numbers2 = new int[] {0,1,2};
+		
+		//선언과 동시에 초기화(new int[] 생략해도 ok)
+		int[] number3= {0,1,2};
+		
+		//선언 후 초기화 할때는 new int[] 생략 X
+		int[] numbers3;
+		numbers3 = new int[] {0,1,2};
+	}
+}
+```
+* 배열을 초기화 할 때는 인덱스 개수를 명시하지 않는다.
+* 선언 후 초기화 할 때는 new int[]를 생략하지 않는다.
+* 초기화를 하지 않으면 0으로 채워진다.
+
+<br>
+
+### 2) 배열 출력하기
+1. 기본 for문
+```java
+public class ArrayTest2 {
+
+	public static void main(String[] args) {
+
+		double[] data = new double[5];
+		
+		data[0] = 10.0;
+		data[1] = 20.0;
+		data[2] = 30.0;
+		
+        //data.length를 사용하여 배열의 크기를 구한 후 for 문으로 배열값 출력
+		for(int i=0; i<data.length; i++){
+			System.out.println(data[i]);
+			
+		}
+	}
+}
+```
+
+<br>
+
+2. 향상된 for문
+```java
+public class ArrayTest2 {
+
+	public static void main(String[] args) {
+
+		String[] strArr={"Java", "Android", "C"}
+
+		for(String lang:strArr){
+			//lang: 배열의 각 요소가 대입되는 변수
+			System.out.println(lang);
+		}
+	
+	}
+}
+
+```
+<br>
+
+### 3) 객체 배열 사용하기
+1) 인스턴스 주소를 담을 공간을 배열로 생성하기
+2) 생성자를 사용해 객체를 생성해서 배열에 담기
+
+```java
+	public static void main(String[] args) {
+		
+		// 인스턴스 주소 값을 담을 공간 5개 생성
+		Book[] library = new Book[5];
+		
+		// 인스턴스를 생성하여 배열에 담기
+		library[0] = new Book("태백산맥", "조정래");
+		library[1] = new Book("데미안", "헤르만 헤세");
+		library[2] = new Book("어떻게 살 것인가","유시민");
+		library[3] = new Book("토지", "박경리");
+		library[4] = new Book("어린왕자", "생텍쥐페리");
+		
+		for(int i=0; i<library.length; i++){
+			library[i].showBookInfo();
+            // 책 정보 출력
+		}
+		
+		for(int i=0; i<library.length; i++){
+			System.out.println(library[i]);
+            //인스턴스의 주소 값 출력
+           // array.Book@506e1b77
+           // array.Book@4fca772d
+           // array.Book@9807454
+           // array.Book@3d494fbf
+           // array.Book@1ddc4ec2
+	}
+ }
+```
+<br>
+
+### 4) 배열 복사하기
+배열 복사하는 방법        
+1. 기존 배열과 배열 길이가 같거나 더 긴 배열을 만들고 for 문을 사용하여 각 요소 값을 반복해서 복사       
+<u>2. System.arraycopy() 메서드를 사용</u>        
+
+System.arraycopy(src, srcPos, dest, destPos, length)
+* src: 복사할 배열 이름
+* srcPos: 복사할 배열의 첫 번째 위치
+* dest: 복사해서 붙여 넣을 대상 배열 이름
+* destPos: 복사해서 대상 배열에 붙여 넣기를 시작할 첫 번째 위치
+* length: src에서 dest로 자료를 복사할 요소 개수
+
+```java
+int[] arr1={1,2,3,4,5};
+int[] arr2={6,7,8,9,10};
+
+System.arraycopy(arr1, 0, arr2, 3, 2);
+
+for(int i=0; i<arr2.length; i++){
+	System.out.println(arr2);
+}
+```
+
+<br>
+
+### 5) 객체 배열 복사하기
+
+#### 1] 얕은 복사
+객체 배열을 복사할 때 인스터스를 따로 생성하는 게 아니라 기존 인스턴스의 주소 값만 복사한다. 따라서 두 배열의 서로 다른 요소가 같은 인스턴스를 가리키고 있으므로 복사되는 배열의 인스턴스 값이 변경되면 두 배열 모두 영향을 받는다.
+
+```java
+public static void main(String[] args) {
+		Book[] bookArray1 = new Book[3];
+		Book[] bookArray2 = new Book[3];
+		
+		bookArray1[0] = new Book("태백산맥", "조정래");
+		bookArray1[1] = new Book("데미안", "헤르만 헤세");
+		bookArray1[2] = new Book("어떻게 살 것인가", "유시민");
+ 		System.arraycopy(bookArray1, 0, bookArray2, 0, 3);
+
+		bookArray1[0].setBookName("나목");
+		bookArray1[0].setAuthor("박완서");
+
+		System.out.println("=== bookArray2 ===");
+		for(int i=0; i<bookArray2.length; i++){
+			bookArray2[i].showBookInfo();
+		}
+		// 출력 시 bookArray1 에서 변경된 인스턴스 값으로 출력된다.
+	}
+```
+<br>
+
+#### 2] 깊은 복사
+복사할 배열에 인스턴스를 따로 생성한 후 요소값을 복사하여 두 배열의 요소가 서로 다른 인스턴스를 가리킨다.
+
+```java
+	public static void main(String[] args) {
+		//배열 생성
+		Book[] bookArray1 = new Book[3];
+		Book[] bookArray2 = new Book[3];
+		
+		//첫 번째 배열 인스턴스 생성
+		bookArray1[0] = new Book("태백산맥", "조정래");
+		bookArray1[1] = new Book("데미안", "헤르만 헤세");
+		bookArray1[2] = new Book("어떻게 살 것인가", "유시민");
+
+ 		//두 번째 배열 인스턴스 생성
+		bookArray2[0] = new Book(); 
+		bookArray2[1] = new Book();
+		bookArray2[2] = new Book();
+		
+		for(int i=0; i<bookArray1.length; i++){   
+			// 각각의 요소를 복사
+			bookArray2[i].setBookName(bookArray1[i].getBookName());
+			bookArray2[i].setAuthor(bookArray1[i].getAuthor());
+		}
+		
+		for(int i=0; i<bookArray2.length; i++){  
+			//복사된 내용 확인
+			bookArray2[i].showBookInfo();
+		}
+		
+		bookArray1[0].setBookName("나목");  
+		 //bookArray1 의 내용 수정
+		bookArray1[0].setAuthor("박완서");
+		
+		System.out.println("=== bookArray1 ===");   
+		 //bookArray1 출력
+		for(int i=0; i<bookArray1.length; i++){
+			bookArray1[i].showBookInfo();
+		}
+		
+		System.out.println("=== bookArray2 ===");    
+		//bookArray2 출력
+		for(int i=0; i<bookArray2.length; i++){
+			bookArray2[i].showBookInfo();   
+			// bookArray1 과 다른 내용으로 출력됨
+		}
+	}
+```
+
+---> 객체 배열 생성 시 주의할 점
+1. 객체 배열을 선언한다고 해서 인스턴스가 생성되는 것은 아니다.
+2. 객체를 복사한다고 해서 완전히 다른 인스턴스를 가르키는 것은 아니다.
+
+<br>
+
+## 2. 다차원 배열
+
+* 선언 
+```java
+int [][]arr = new int [2][3]
+```
+
+* 초기화
+```java
+int[][] arr = {{1,2,3},{4,5,6}}
+```
+
+* 출력
+```java
+for (int i=0; i<arr.length; i++){
+	//arr.length는 행의 길이
+	for(int j=0; j<arr[i].length; j++){
+		//arr[i].length 는 해당 행의 열의 길이
+		System.out.println(arr[i][j]);
+	}
+	System.out.println();
+}
+```
+
+* 예제
+
+ 알파벳 소문자 13행 2열로 출력하기
+```java
+
+public static void main(String[] args) {
+	
+	char a='a';
+	char[][] arr=new char [13][2];
+		
+	for(int i=0; i<arr.length; i++) {
+		for(int j=0; j<arr[i].length; j++) {
+			arr[i][j]=a;
+			System.out.print(arr[i][j]+"");
+			a++;
+		}
+		System.out.println();
+	}	
+		
+}	
+```
+
+<br>
+
+## 3. ArrayList 클래스 사용하기
+* 자바에서 제공되는 객체 배열이 구현된 클래스
+* 여러 메서드와 속성 등을 사용하여 객체 배열을 편리하게 관리할 수 있음
+
+<br>
+
+### 1) 기본 형식
+```java
+import java.util.ArrayList;
+
+public class ArrayListEx {
+	public static void main(String[] args) {
+		//Arraylist<E> 배열 이름 = new ArrayList<E>();
+		ArrayList<String> library = new ArrayList<String>();
+	}
+}
+```
+
+ <br>
+ 
+ ### 2) 응용하기
+ Student 클래스 안에 Subject 클래스를 배열 형식으로 담기   
+
+Subject
+```java
+package arraylistEx;
+
+public class Subject {
+	String subjectName;
+	int score;
+	
+	public String getSubjectName() {
+		return subjectName;
+	}
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
+}
+```
+1. 과목 이름, 성적 저장할 변수 선언
+2. 과목 이름, 성적을 저장하는 메소드 선언
+
+<br>
+
+Student
+```java
+package arraylistEx;
+
+import java.util.ArrayList;
+
+public class Student {
+	public static int serialNum=1000;
+	private String studentName;
+	private int studentID;
+	
+	ArrayList<Subject> subjectList;
+	
+	public Student(String studentName) {
+		serialNum++;
+		this.studentName = studentName;
+		this.studentID=serialNum;
+		
+		subjectList=new ArrayList<Subject>();
+	}
+	
+	public void addSubject(String subjectName, int score) {
+		Subject subject = new Subject();
+		subject.setSubjectName(subjectName);
+		subject.setScore(score);
+		
+		subjectList.add(subject);
+	}
+	
+	public void showStudentInfo() {
+		for(Subject s:subjectList) {
+			System.out.println("학생 이름: "+studentName+", 학번: "+studentID +", 과목: "+s.subjectName + ", 성적: "+s.score);
+		}
+	}
+
+}
+```
+1. 학생 이름, 학번을 저장할 변수 선언
+2. Subject 자료형을 담을 ArrayList 선언
+3. Student 생성자를 선언할 때 ArrayList의 인스턴스 만들기
+4. 학생이 수강하는 과목을 subjectList 배열에 하나씩 추가하는 메서드 생성
+5. 학생 정보를 출력하는 메서드 생성
+
+<br>
+
+StudentTest
+```java
+package arraylistEx;
+
+public class StudentTest {
+	public static void main(String[] args) {
+	
+		Student studentLee=new Student("Lee");
+		studentLee.addSubject("국어", 100);
+		studentLee.addSubject("수학", 80);
+		
+		Student studentKim=new Student("Kim");
+		studentKim.addSubject("국어", 75);
+		studentKim.addSubject("수학", 90);
+		studentKim.addSubject("영어", 100);
+		
+		studentLee.showStudentInfo();
+		studentKim.showStudentInfo();
+	}
+}
+```
+1. Student 자료형 인스턴스 생성
+2. Student 클래스의 메서드를 이용하여 arrayList에 과목 정보 추가
+3. 학생 정보 출력
