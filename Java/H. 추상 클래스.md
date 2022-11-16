@@ -241,6 +241,8 @@ stop(); -> 재정의한 메서드 출력
 washCar(); -> AICar에서만 재정의 하였기 때문에 AICar에서만 출력    
 turnOff(); -> 공통으로 출력        
 
+<br>
+
 ## 3. 템플릿 메서드 응용하기
 #### 예제 시나리오
 Player가 있고, 이 Player가 게임을 한다. 게임에서 Player가 가지는 레벨에 따라 할 수 있는 세가지 기능이 있다.           
@@ -423,7 +425,7 @@ public class MainBoard {
 		// AdvancedLevel의 인스턴스를 생성하여 aLevel 변수에 대입
 		player1.upgradeLevel(aLevel);
 		//aLevel이 upgradeLevel 메서드의 인자로 들어가면서 AdvancedLevel->PlayerLevel 형변환
-		//player1의 level에는 aLevel에 저장된 AdvancedLevel의 주소가 대입됨 
+		//player1의 level에는 aLevel에 저장된 AdvancedLevel 인스턴스의 주소가 대입됨 
 		player1.play(2);
 		//level.go(2)에 의해서 템플릿 메서드 실행
 		//run(), jump(), turn() 모두 추상메서드로 AdvancedLevel의 메서드가 실행됨
@@ -432,6 +434,7 @@ public class MainBoard {
 		// SuperLevel의 인스턴스를 생성하여 sLevel 변수에 대입
 		player1.upgradeLevel(sLevel);
 		//sLevel이 upgradeLevel 메서드의 인자로 들어가면서 SuperLevel->PlayerLevel 형변환
+		//player1의 level에는 sLevel에 저장된 SuperLevel 인스턴스의 주소가 대입됨 
 		player1.play(3);
 		//level.go(3)에 의해서 템플릿 메서드 실행
 		//run(), jump(), turn() 모두 추상메서드로 SuperLevel의 메서드가 실행됨	
@@ -439,3 +442,50 @@ public class MainBoard {
 }
 ```
 
+<br>
+
+## 4. final 예약어
+* 변수: final 변수는 상수를 의미한다.
+* 메서드: final 메서드는 하위 클래스에서 재정의할 수 없다.
+* 클래스: final 클래스는 상속할 수 없다.
+
+#### 여러 자바 파일에서 공유하는 상수 값 정의하기
+
+```java
+package finalex;
+
+public class Define {
+
+	public static final int MIN = 1;
+	public static final int MAX = 99999;
+
+	public static final int ENG = 1001;
+	public static final int MATH = 2001;
+	
+	public static final double PI = 3.14;
+	public static final String GOOD_MORNING = "Good Morning!";
+}
+```
+* Define.java 파일을 하나 만들고 프로그램에서 사용할 상수 값들을 선언
+* 모든 상수를 static으로 선언했기 때무에 인스턴스를 생성하는 것과 관계업싱 클래스 이름으로 참조
+
+<br>
+
+상수를 사용하는 예제 코드
+```java
+package finalex;
+
+public class UsingDefine {
+
+	public static void main(String[] args) {
+
+		System.out.println(Define.GOOD_MORNING);   //static 으로 선언되었으므로 클래스 이름으로 참조 합니다.
+		System.out.println("최솟값은 " +  Define.MIN + "입니다.");
+		System.out.println("최댓값은 " +  Define.MAX + "입니다.");
+		System.out.println("수학 과목 코드 값은 " + Define.MATH + "입니다.");
+		System.out.println("영어 과목 코드 값은 " + Define.ENG + "입니다.");
+		
+	}
+
+}
+```
