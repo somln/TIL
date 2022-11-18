@@ -248,3 +248,398 @@ public class SchedulerTest {
 	}
 }
 ```
+
+<br>
+
+## 2. 인터페이스의 요소
+
+### 1) 인터페이스 상수
+인터페이스는 추상 메서드로 이루어지므로 인스턴스를 생성할 수 없으며 멤버 변수도 사용할 수 없다. 따라서 인터페이스에 선언한 변수는 컴파일 과정에서 상수로 변환된다.
+
+<br>
+
+### 2) 디폴트 메서드
+인터페이스에는 메서드를 구현할 수 없으므로 추상 메서드를 선언하고 각 클래스마다 똑같이 그 기능을 반복하려면 번거롭다. 따라서, 인터페이스에서 기본으로 제공되는 메서드가 필요한데 이를 '디폴트 메서드'라고 한다. 디폴트 메서드는 클래스에서 따로 구현하지 않아도 된다. 선언 시 default 예약어를 사용한다.
+
+<br>
+ 
+### 3) 정적 메서드
+정적 메서드는 static 예약어를 사용하여 선언하면 클래스 생성과 무관하게 사용할수 있다. 정적 메서드를 사용할 때는 인터페이스 이름으로 직접 참조하여 사용한다.
+
+<br>
+
+### 4) private 메서드
+private 메서드는 인터페이스를 구현한 클래스에서 사용하거나 재정의할 수 없다, 따라서 기존에 구현된 코드를 변경하지 않고 인터페이스를 구현한 클래스에서 공통으로 사용하는 경우에 pirvate 메서드로 구현하면 코드의 재사용성을 높일 수 있다.   
+pirvate 메서드는 defautl 메서드에서, private static 메서드는 static 메서드에서 호출해 사용한다.
+
+<br>
+
+```java
+package interfaceex;
+
+public interface Calc {
+	
+	//상수
+	double PI = 3.14;
+	int ERROR = -999999999;
+	
+	int add(int num1, int num2);
+	int substract(int num1, int num2);
+	int times(int num1, int num2);
+	int divide(int num1, int num2);
+	
+	//디폴트 메서드
+	default void description(){
+		System.out.println("정수 계산기를 구현합니다");
+		myMethod();  //private 메서드 호출
+	}
+	
+	//정적 메서드
+	static int total(int[] arr){
+		
+		int total = 0;
+		
+		for(int i: arr){
+			total += i;
+		}
+		myStaticMethod(); //private static 메서드 호출
+		return total;
+	}
+	
+	private void myMethod() {
+		System.out.println("private 메서드 입니다.");
+	}
+	
+	private static void myStaticMethod() {
+		System.out.println("private static 메서드 입니다.");
+	}
+}
+```
+
+<br>
+
+```java
+package interfaceex;
+
+public class CalculatorTest {
+
+	public static void main(String[] args) {
+
+		int num1 = 10;
+		int num2 = 5;
+		
+		CompleteCalc calc = new CompleteCalc();
+		System.out.println(calc.add(num1, num2));
+		System.out.println(calc.substract(num1, num2));
+		System.out.println(calc.times(num1, num2));
+		System.out.println(calc.divide(num1, num2));
+		calc.showInfo();
+		
+		//디폴트 메서드 사용하기
+		calc.description();
+
+        //정적 메서드 사용하기
+		int[] arr={1,2,3,4,5};
+		system.out.pirintln(Calc.total(arr));
+		
+	}}
+```
+
+#### 실행결과
+15 
+5        
+50                               
+2                      
+Calc 인터페이스를 구현하였습니다                 
+정수 계산기를 구현합니다               
+private 메서드 입니다.              
+private static 메서드 입니다.              
+15                
+     
+<br>
+
+## 4. 인터페이스 활용하기
+
+### 1) 한 클래스가 여러 인터페이스를 구현하는 경우
+
+Buy
+```java
+package interfaceex;
+
+public interface Buy {
+	void buy();
+
+    //디폴트 메서드
+default void order(){
+	system.out.println("구매주문");
+   }  
+}
+```
+
+<br>
+
+Sell
+```java
+package interfaceex;
+
+public interface Sell {
+	void sell();
+
+//디폴트 메서드
+default void order(){
+	System.out.println("판매주문");
+ㄴ}
+}
+```
+
+<br>
+
+Buy, Sell 인터페이스를 구현한 Customer 클래스
+```java
+package interfaceex;
+
+public class Customer implements Buy, Sell{
+	//Buy, Sell 인터페이스 모두 구현
+
+	@Override
+	public void buy() {
+		System.out.println("구매하기");
+	}
+
+	@Override
+	public void sell() {
+		System.out.println("판매하기");
+
+    //디폴트 메서드가 중복되는 경우 오류가 나기 때문에 재정의를 해야한다.
+	@Override
+	public void order() {
+		System.out.println("고객 판매 주문");
+	}
+	}
+}
+```
+
+<br>
+
+```java
+package interfaceex;
+
+public class CustomerTest {
+
+	public static void main(String[] args) {
+
+		Customer customer = new Customer();
+	    
+		//Buy 인터페이스형으로 형변환
+		Buy buyer = customer;
+		buyer.buy();    //Buy 인터페이스 메서드만 호출 가능
+		buyer.order();  //재정의된 메서드 호출
+		
+		//Sell 인터페이스형으로 형변환
+		Sell seller = customer;
+		seller.sell();   //Sell 인터페이스 메서드만 호출 가능
+		seller.order();  //재정의된 메서드 호출
+		
+		if( seller instanceof Customer){  //하위 클래스형인 Customer로 다시 형변환
+			Customer customer2 = (Customer)seller;
+			customer2.buy();  //Customer형이므로 buy, sell 둘다 호출 가능
+			customer2.sell();
+		}
+		customer.order();
+	}
+}
+```
+
+#### 출력결과
+구매하기     
+고객 판매 주문                  
+판매하기              
+고객 판매 주문         
+구매하기                        
+판매하기            
+고객 판매 주문              
+
+<br>
+
+### 2) 인터페이스 상속하기
+
+
+```java
+package interfaceex;
+
+public interface X{
+	void x();
+}
+```
+
+<br>
+
+```java
+package interfaceex;
+
+public interface Y{
+	void y();
+}
+```
+
+<br>
+
+X, Y 인스턴스를 상속받은 MyInterface
+```java
+public interface MyInterface extends X,Y{
+	void myMethod();
+}
+```
+
+
+<br>
+
+MyInterface를 상속받은 MyClass
+```java
+package interfaceex;
+
+public class MyClass implements MyInterface{
+	//MyInterface는 X,Y 인터페이스를 상속받았으므로 x(), y() 클래스도 구현해야함
+
+	@Override
+	public void x() {
+		System.out.println("x()");
+	}
+
+	@Override
+	public void y() {
+		System.out.println("y()");
+	}
+
+	@Override
+	public void myMethod() {
+		System.out.println("myMethod()");		
+	}
+}
+```
+
+<br>
+
+```java
+package interfaceex;
+
+public class MyClassTest {
+
+	public static void main(String[] args) {
+
+		MyClass mClass = new MyClass();
+		X xClass = mClass;
+		xClass.x();  //X 인터페이스 메서드만 호출 가능
+		
+		Y yClass = mClass;
+		yClass.y();  //Y 인터페이스 메서드만 호출 가능
+		
+		MyInterface iClass = mClass;
+		iClass.myMethod();  //모두 호출 가능
+		iClass.x();
+		iClass.y();
+	}
+}
+```
+
+### 3) 인터페이스 구현과 클래스 상속 함께 쓰기
+
+<br>
+
+Shelf
+```java
+package bookshelf;
+
+import java.util.ArrayList;
+
+public class Shelf {
+	
+	//자료를 순서대로 저장할 ArrayList 선언
+	protected ArrayList<String> shelf;
+
+	//디폴트 생성자로 Shelf 클래스를 생성하면 ArrayList도 생성됨
+	public Shelf(){
+		shelf=new ArrayList<String>();
+	}
+	
+	public ArrayList<String> getShelf(){
+		return shelf;
+	}
+
+	public int getCount() {
+		return shelf.size();
+	}
+}
+
+```
+
+<br>
+
+Queue
+```java
+package bookshelf;
+
+public interface Queue {
+	void enQueue(String title);  //배열의 맨 마지막에 추가
+	String deQueue();  //배열의 맨 처음 항목 반환
+	int getSize();  //현재 Queue에 있는 개수 반환
+}
+
+```
+
+<br>
+
+Shelf 클래스 상속받고, Queue 인터페이스 구현한 BookShelf
+Shelf 클래스가 가지고 있는 ArrayList 배열을 사용하여 Queue 인터페이스에서 선언한 메서드를 모두 구현
+```java
+package bookshelf;
+
+public class Bookshelf extends Shelf implements Queue {
+
+	// 배열에 요소 추가
+	@Override
+	public void enQueue(String title) {
+		shelf.add(title);
+	}
+	
+	//맨 처음 요소를 배열에서 삭제하고 반환
+	@Override
+	public String deQueue() {
+		return shelf.remove(0);
+	}
+
+	//배열 요소 개수 반환
+	@Override
+	public int getSize() {
+		return getCount();
+	}
+
+}
+```
+
+<br>
+
+BookShelfTest
+```java
+
+package bookshelf;
+
+public class BookShelfTest {
+
+	public static void main(String[] args) {
+
+		Queue shelfQueue = new BookShelf();
+		
+		//순서대로 요소를 추가
+		shelfQueue.enQueue("태백 산맥 1");
+		shelfQueue.enQueue("태백 산맥 2");
+		shelfQueue.enQueue("태백 산맥 3");
+		
+		//입력 순서대로 요소를 꺼내서 출력
+		System.out.println(shelfQueue.deQueue());
+		System.out.println(shelfQueue.deQueue());
+		System.out.println(shelfQueue.deQueue());
+		
+	}
+}
+```
