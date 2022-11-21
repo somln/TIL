@@ -145,10 +145,12 @@ public class CustomerTest1 {
 	public static void main(String[] args) {
 		
 		Customer customerLee = new Customer();
-		customerLee.setCustomerID(10100);
+		//customerID와customerNamedms proteced 변수이므로 set()메서드 호출
+		customerLee.setCustomerID(10100);  
 		customerLee.setCustomerName("Lee");
 		
 		VIPCustomer customerKim = new VIPCustomer();
+		//customerID와customerNamedms proteced 변수이므로 set()메서드 호출
 		customerKim.setCustomerID(10101);
 		customerKim.setCustomerName("Kim");
 		
