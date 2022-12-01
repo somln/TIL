@@ -10,15 +10,11 @@ SELECT 칼럼명
 FROM 테이블명
 ```
 
-<br>
-
 ### 여러 필드를 조회
 ```sql
 SELECT 칼럼명1, 칼럼명2
 FROM 테이블명
 ```
-
-<br>
 
 ### 모든 필드를 조회
 ```sql
@@ -26,13 +22,11 @@ SELECT *
 FROM 테이블명
 ```
 
-<br>
-
 ### 필드의 개수를 제한
 ```sql
 SELECT 칼럼명1, 칼럼명2
 FROM 테이블명
-LIMIT 10
+LIMIT 숫자
 ```
 
 <br>
@@ -57,6 +51,7 @@ FROM city
 ## Q2.
 Query a list of CITY and STATE from the STATION table.
 The STATION table is described as follows:
+
 <img src="https://s3.amazonaws.com/hr-challenge-images/9336/1449345840-5f0a551030-Station.jpg"></img>
 
 ```sql
