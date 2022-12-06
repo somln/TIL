@@ -45,7 +45,7 @@ WHERE discount LIKE '__\%'
 SELECT *
 FROM Customers
 WHERE Country IN ('Germany', 'France', 'Korea')
-// Country 가 'Germany', 'France', 'Korea' 중 하나인 데이터 가져오기
+--Country 가 'Germany', 'France', 'Korea' 중 하나인 데이터 가져오기
 ```
 
 <br>
