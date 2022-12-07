@@ -5,19 +5,19 @@ public class Main {
 		Scanner in = new Scanner(System.in);
 		
 		String s = in.next();
-		char key= in.next().charAt(0);
-		int count=0;
-		
-		in.close();
-		s=s.toLowerCase();
-		key=Character.toLowerCase(key);
+		char t;
+		char t2;
 		
 		for(int i=0; i<s.length(); i++) {
-			
-			if(s.charAt(i)==key) {
-				count++;
+			t=s.charAt(i);
+			if(Character.isUpperCase(t)) {
+				t2=Character.toLowerCase(t);
 			}
-		}
-		System.out.println(count);	
+			else {
+				t2=Character.toUpperCase(t);
+			}
+			System.out.print(t2);
+	   }
+		in.close();
 	}
 }
