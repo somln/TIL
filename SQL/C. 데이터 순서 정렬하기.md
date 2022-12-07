@@ -146,8 +146,6 @@ The STUDENTS table is described as follows:
 
 <img src="https://s3.amazonaws.com/hr-challenge-images/12896/1443815243-94b941f556-1.png"></img>
 
-<img src=""></img>
-
 ```sql
 SELECT name
 FROM students
