@@ -1,23 +1,31 @@
 import java.util.Scanner;
 
 public class Main {
+	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		
 		String s = in.next();
-		char key= in.next().charAt(0);
-		int count=0;
+		char[] str = s.toCharArray();
 		
-		in.close();
-		s=s.toLowerCase();
-		key=Character.toLowerCase(key);
+		int lt=0;
+		int rt=str.length-1;
 		
-		for(int i=0; i<s.length(); i++) {
-			
-			if(s.charAt(i)==key) {
-				count++;
+		while(lt<rt) {
+			if(!Character.isAlphabetic(str[lt])) lt++;
+			else if(!Character.isAlphabetic(str[rt]))rt--;
+			else {
+				char temp=str[lt];
+				str[lt]=str[rt];
+				str[rt]=temp;				
+			    lt++;
+			    rt--;
 			}
 		}
-		System.out.println(count);	
+		
+		String answer = String.valueOf(str);
+		System.out.println(answer);
+		
+		in.close();	
 	}
 }
