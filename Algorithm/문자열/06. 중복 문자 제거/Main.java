@@ -1,23 +1,20 @@
 import java.util.Scanner;
 
 public class Main {
+	
 	public static void main(String[] args) {
 		Scanner in = new Scanner(System.in);
 		
 		String s = in.next();
-		char key= in.next().charAt(0);
-		int count=0;
-		
-		in.close();
-		s=s.toLowerCase();
-		key=Character.toLowerCase(key);
+		String answer="";
 		
 		for(int i=0; i<s.length(); i++) {
-			
-			if(s.charAt(i)==key) {
-				count++;
+			if(s.indexOf(s.charAt(i))==i){
+				answer+=s.charAt(i);
 			}
 		}
-		System.out.println(count);	
+		
+		System.out.println(answer);
+		in.close();	
 	}
 }
