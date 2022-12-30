@@ -31,3 +31,15 @@ public class Main {
    StringBuilder를 사용한다
  * StringBuilder를 사용한 후에는, toString을 호출해  String형으로 반환해주어야 한다.  
 */
+
+/*
+ArrayList를 사용하지 않고,
+
+String[] answer = new String[n];
+for(int i=0; i<n; i++) {
+  String temp = new StringBuilder(str[i]).reverse().toString();
+  answer[i] = temp;
+}
+
+도 가능하다.
+*/
